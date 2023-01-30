@@ -1,4 +1,4 @@
 # anylang-template
 
-This template does not depend on any programming language.\
+A template that is not exclusive to one programming language.\
 Basic setup for editor, documents and GitHub Actions.

@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "redhat.vscode-yaml",
+    "github.vscode-github-actions",
     "editorconfig.editorconfig",
     "streetsidesoftware.code-spell-checker",
     "dprint.dprint",

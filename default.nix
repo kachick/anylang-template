@@ -5,5 +5,6 @@ pkgs.mkShell {
     pkgs.nil
     pkgs.nixpkgs-fmt
     pkgs.dprint
+    pkgs.typos
   ];
 }

@@ -12,11 +12,5 @@
         "command": ["nixpkgs-fmt"]
       }
     }
-  },
-  "cSpell.words": [
-    "cachix",
-    "dprint",
-    "nixos",
-    "nixpkgs"
-  ]
+  }
 }

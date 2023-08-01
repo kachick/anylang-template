@@ -16,6 +16,10 @@
         devShells.default = with pkgs;
           mkShell {
             buildInputs = [
+              # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
+              # https://github.com/kachick/dotfiles/pull/228
+              pkgs.bashInteractive
+
               nil
               nixpkgs-fmt
               dprint

@@ -1,9 +1,6 @@
 name: 'Dependency Review'
 on:
   pull_request:
-    paths:
-      - '.github/workflows/**'
-      - '**.nix'
 
 permissions:
   contents: read

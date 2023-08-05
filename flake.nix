@@ -1,9 +1,8 @@
 {
   inputs = {
-    # Candidates
-    #   - https://releases.nixos.org/?prefix=nixpkgs/
-    #   - https://github.com/kachick/nixpkgs-url
-    nixpkgs.url = "github:NixOS/nixpkgs/23.05";
+    # https://github.com/kachick/anylang-template/issues/17
+    # https://discourse.nixos.org/t/differences-between-nix-channels/13998
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 

@@ -17,7 +17,6 @@ tasks:
       - echo 'Update here'
   fmt:
     cmds:
-      - typos . .github .vscode --write-changes
       - dprint fmt
       - nixpkgs-fmt ./*.nix
   lint:

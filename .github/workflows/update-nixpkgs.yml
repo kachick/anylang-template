@@ -4,9 +4,9 @@ on:
     paths:
       - '.github/workflows/update-nixpkgs.yml'
   schedule:
-    # Every 10:17 JST
+    # Every Monday 10:17 JST
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-    - cron: '17 1 * * *'
+    - cron: '17 1 * * 1'
   workflow_dispatch:
 
 permissions:

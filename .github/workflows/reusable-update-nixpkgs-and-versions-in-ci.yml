@@ -4,6 +4,10 @@ on:
     # https://docs.github.com/ja/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization
     # https://docs.github.com/ja/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callinputs
     inputs:
+      dry-run:
+        default: false
+        required: false
+        type: boolean
       commit-message:
         default: 'Update CI dependencies with adjusting to nixpkgs'
         required: false
@@ -37,7 +41,6 @@ jobs:
     steps:
       # To push workflow changes and trigger CIs
       - name: Generate GitHub Apps token
-        if: (github.event.sender.login == 'kachick') || (github.event_name != 'pull_request')
         id: publish-token
         uses: tibdex/github-app-token@v2
         with:
@@ -70,9 +73,9 @@ jobs:
           count="$(git rev-list --count origin/${{ inputs.default-branch }}..)"
           echo "count=${count}" | tee -a "$GITHUB_OUTPUT"
       - run: git push origin "${PR_BRANCH}"
-        if: (github.event_name != 'pull_request') && (steps.count-commits.outputs.count > 0)
+        if: !inputs.dry-run && (steps.count-commits.outputs.count > 0)
       - name: Create PR
-        if: (github.event_name != 'pull_request') && (steps.count-commits.outputs.count > 0)
+        if: !inputs.dry-run && (steps.count-commits.outputs.count > 0)
         env:
           GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |

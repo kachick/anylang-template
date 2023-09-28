@@ -1,16 +1,32 @@
-name: CI - Update nixpkgs and sync CI dependencies
+name: Update nixpkgs and CI dependencies
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/update-nixpkgs.yml'
-  schedule:
-    # Every Monday 10:17 JST
-    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-    - cron: '17 1 * * 1'
-  workflow_dispatch:
-
-permissions:
-  contents: write
+  workflow_call:
+    # https://docs.github.com/ja/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization
+    # https://docs.github.com/ja/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callinputs
+    inputs:
+      commit-message:
+        default: 'Update CI dependencies with adjusting to nixpkgs'
+        required: false
+        type: string
+      default-branch:
+        default: 'main'
+        required: false
+        type: string
+      pr-title:
+        default: 'Update nixpkgs and related CI dependencies'
+        required: false
+        type: string
+      pr-body:
+        default: |
+          This PR has been created by https://github.com/kachick/anylang-template/.github/workflows/update-nixpkgs-and-versions-in-ci.yml
+          It is an integration action of https://github.com/kachick/selfup
+        required: false
+        type: string
+    secrets:
+      APP_ID:
+        required: true
+      APP_PRIVATE_KEY:
+        required: true
 
 jobs:
   tasks:
@@ -27,7 +43,7 @@ jobs:
         with:
           # Required to set workflow permission for the APP
           app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v4
         with:
           # Needed to get commit counts
@@ -47,11 +63,11 @@ jobs:
       - name: Update related CI dependencies
         run: |
           nix develop --command nix run github:kachick/selfup/v0.0.2 -- run --prefix='# selfup ' --skip-by='nix run' .github/workflows/*.yml
-          git diff-index --quiet HEAD || git commit -m 'Update CI dependencies with adjusting to nixpkgs' .github
+          git diff-index --quiet HEAD || git commit -m '${{ inputs.commit-message }}' .github
       - name: Count added commits
         id: count-commits
         run: |
-          count="$(git rev-list --count origin/main..)"
+          count="$(git rev-list --count origin/${{ inputs.default-branch }}..)"
           echo "count=${count}" | tee -a "$GITHUB_OUTPUT"
       - run: git push origin "${PR_BRANCH}"
         if: (github.event_name != 'pull_request') && (steps.count-commits.outputs.count > 0)
@@ -60,4 +76,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |
-          gh pr create --base 'main' --title 'Update nixpkgs and related CI dependencies' --body 'This PR is based on https://github.com/kachick/selfup'
+          gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'

@@ -73,9 +73,9 @@ jobs:
           count="$(git rev-list --count origin/${{ inputs.default-branch }}..)"
           echo "count=${count}" | tee -a "$GITHUB_OUTPUT"
       - run: git push origin "${PR_BRANCH}"
-        if: !inputs.dry-run && (steps.count-commits.outputs.count > 0)
+        if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0)
       - name: Create PR
-        if: !inputs.dry-run && (steps.count-commits.outputs.count > 0)
+        if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0)
         env:
           GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |

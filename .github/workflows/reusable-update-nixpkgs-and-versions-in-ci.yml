@@ -1,4 +1,4 @@
-name: Update nixpkgs and CI dependencies
+name: '[Reusable] Update nixpkgs and CI dependencies'
 on:
   workflow_call:
     # https://docs.github.com/ja/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization

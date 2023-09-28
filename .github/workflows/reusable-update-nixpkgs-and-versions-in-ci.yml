@@ -1,0 +1,79 @@
+name: Update nixpkgs and CI dependencies
+on:
+  workflow_call:
+    # https://docs.github.com/ja/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization
+    # https://docs.github.com/ja/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callinputs
+    inputs:
+      commit-message:
+        default: 'Update CI dependencies with adjusting to nixpkgs'
+        required: false
+        type: string
+      default-branch:
+        default: 'main'
+        required: false
+        type: string
+      pr-title:
+        default: 'Update nixpkgs and related CI dependencies'
+        required: false
+        type: string
+      pr-body:
+        default: |
+          This PR has been created by https://github.com/kachick/anylang-template/.github/workflows/update-nixpkgs-and-versions-in-ci.yml
+          It is an integration action of https://github.com/kachick/selfup
+        required: false
+        type: string
+    secrets:
+      APP_ID:
+        required: true
+      APP_PRIVATE_KEY:
+        required: true
+
+jobs:
+  tasks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PR_BRANCH: update-nixpkgs-${{ github.run_id }}
+    steps:
+      # To push workflow changes and trigger CIs
+      - name: Generate GitHub Apps token
+        if: (github.event.sender.login == 'kachick') || (github.event_name != 'pull_request')
+        id: publish-token
+        uses: tibdex/github-app-token@v2
+        with:
+          # Required to set workflow permission for the APP
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          # Needed to get commit counts
+          # https://stackoverflow.com/a/65056108
+          fetch-depth: 0
+          # Needed to specify token for checkout phase, only in pushing phase is too late
+          # https://github.com/orgs/community/discussions/27072#discussioncomment-3254515
+          token: ${{ steps.publish-token.outputs.token }}
+      - uses: DeterminateSystems/nix-installer-action@v4
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: Prepare Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "${PR_BRANCH}"
+      - run: nix flake update --commit-lock-file
+      - name: Update related CI dependencies
+        run: |
+          nix develop --command nix run github:kachick/selfup/v0.0.2 -- run --prefix='# selfup ' --skip-by='nix run' .github/workflows/*.yml
+          git diff-index --quiet HEAD || git commit -m '${{ inputs.commit-message }}' .github
+      - name: Count added commits
+        id: count-commits
+        run: |
+          count="$(git rev-list --count origin/${{ inputs.default-branch }}..)"
+          echo "count=${count}" | tee -a "$GITHUB_OUTPUT"
+      - run: git push origin "${PR_BRANCH}"
+        if: (github.event_name != 'pull_request') && (steps.count-commits.outputs.count > 0)
+      - name: Create PR
+        if: (github.event_name != 'pull_request') && (steps.count-commits.outputs.count > 0)
+        env:
+          GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
+        run: |
+          gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'

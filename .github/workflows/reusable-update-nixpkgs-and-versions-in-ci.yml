@@ -26,6 +26,9 @@ on:
           It is an integration action of https://github.com/kachick/selfup
         required: false
         type: string
+      optional-run:
+        required: false
+        type: string
     secrets:
       APP_ID:
         required: true
@@ -67,6 +70,9 @@ jobs:
         run: |
           nix develop --command nix run github:kachick/selfup/v0.0.2 -- run --prefix='# selfup ' --skip-by='nix run' .github/workflows/*.yml
           git diff-index --quiet HEAD || git commit -m '${{ inputs.commit-message }}' .github
+      - name: Run optional step if given
+        if: inputs.optional-run != ''
+        run: ${{ inputs.optional-run }}
       - name: Count added commits
         id: count-commits
         run: |

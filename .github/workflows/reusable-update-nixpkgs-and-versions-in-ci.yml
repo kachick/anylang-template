@@ -1,4 +1,4 @@
-name: '[Reusable] Update nixpkgs and CI dependencies'
+name: '[Reusable] Update flake.lock and CI dependencies'
 on:
   workflow_call:
     # https://docs.github.com/ja/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization
@@ -17,7 +17,7 @@ on:
         required: false
         type: string
       pr-title:
-        default: 'Update nixpkgs and related CI dependencies'
+        default: 'Update flake.lock and related CI dependencies'
         required: false
         type: string
       pr-body:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      PR_BRANCH: update-nixpkgs-${{ github.run_id }}
+      PR_BRANCH: update-flake.lock-${{ github.run_id }}
     steps:
       # To push workflow changes and trigger CIs
       - name: Generate GitHub Apps token

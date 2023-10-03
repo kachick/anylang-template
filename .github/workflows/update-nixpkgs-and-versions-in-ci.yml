@@ -1,4 +1,4 @@
-name: Update nixpkgs and CI dependencies
+name: Update flake.lock and CI dependencies
 on:
   pull_request:
     paths:
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-nixpkgs:
+  update:
     # Why splitting to another file?: https://github.com/actions/runner/issues/2274
     uses: ./.github/workflows/reusable-update-nixpkgs-and-versions-in-ci.yml
     if: (github.event.sender.login == 'kachick') || (github.event_name != 'pull_request')

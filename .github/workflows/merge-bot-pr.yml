@@ -18,7 +18,7 @@ jobs:
         uses: dependabot/fetch-metadata@v1.6.0
       - name: Wait other jobs
         if: ${{steps.metadata.outputs.update-type != 'version-update:semver-major'}}
-        uses: kachick/wait-other-jobs@v2.0.1
+        uses: kachick/wait-other-jobs@v2.0.2
         timeout-minutes: 10
       - name: Approve and merge
         if: ${{steps.metadata.outputs.update-type != 'version-update:semver-major'}}
@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Wait other jobs
-        uses: kachick/wait-other-jobs@v2.0.1
+        uses: kachick/wait-other-jobs@v2.0.2
         timeout-minutes: 10
       - name: Approve and merge
         run: gh pr review --approve "$PR_URL" && gh pr merge --auto --squash "$PR_URL"

@@ -66,7 +66,7 @@ jobs:
           # Needed to specify token for checkout phase, only in pushing phase is too late
           # https://github.com/orgs/community/discussions/27072#discussioncomment-3254515
           token: ${{ steps.publish-token.outputs.token }}
-      - uses: DeterminateSystems/nix-installer-action@v5
+      - uses: DeterminateSystems/nix-installer-action@v6
       - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Prepare Git
         run: |

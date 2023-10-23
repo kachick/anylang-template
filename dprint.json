@@ -1,5 +1,7 @@
 {
-  "json": {},
+  "json": {
+    "trailingCommas": "never"
+  },
   "markdown": {},
   "prettier": {
     "printWidth": 120,

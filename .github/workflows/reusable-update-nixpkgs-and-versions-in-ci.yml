@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      PR_BRANCH: update-flake.lock-${{ github.run_id }}
+      PR_BRANCH: bot-update-flake.lock
     steps:
       # To push workflow changes and trigger CIs
       - name: Generate GitHub Apps token
@@ -70,10 +70,11 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v3
       - name: Prepare Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "${PR_BRANCH}"
-      - run: nix flake update --commit-lock-file
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch "${PR_BRANCH}" || git switch -c "${PR_BRANCH}"
+      - name: Update flake.lock and commit them
+        run: nix flake update --commit-lock-file
       - name: Update related CI dependencies
         run: |
           nix develop --command nix run github:kachick/selfup/v0.0.2 -- run --prefix='# selfup ' --skip-by='nix run' .github/workflows/*.yml
@@ -86,11 +87,12 @@ jobs:
         run: |
           count="$(git rev-list --count origin/${{ inputs.default-branch }}..)"
           echo "count=${count}" | tee -a "$GITHUB_OUTPUT"
-      - run: git push origin "${PR_BRANCH}"
+      - run: git push origin "${PR_BRANCH}" --force
         if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0)
       - name: Create PR
         if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0)
         env:
           GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |
-          gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'
+          gh pr list --author "@me" --state open --head "${PR_BRANCH}" ||
+            gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'

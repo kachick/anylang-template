@@ -68,11 +68,23 @@ jobs:
           token: ${{ steps.publish-token.outputs.token }}
       - uses: DeterminateSystems/nix-installer-action@v9
       - uses: DeterminateSystems/magic-nix-cache-action@v3
-      - name: Prepare Git
+      - name: Fetch active PRs by me
+        id: fetch-active-prs
+        run: |
+          count="$(gh pr list --author "@me" --state open --head bot-update-flake-lock --json number --jq 'length')"
+          echo "count=${count}" | tee -a "$GITHUB_OUTPUT"
+      - name: Prepare Git user
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Reuse branch
+        if: steps.fetch-active-prs.outputs.count > 0
+        run: |
           git switch "${PR_BRANCH}" || git switch -c "${PR_BRANCH}"
+      - name: Create new branch
+        if: steps.fetch-active-prs.outputs.count == 0
+        run: |
+          git switch -c "${PR_BRANCH}"
       - name: Update flake.lock and commit them
         run: nix flake update --commit-lock-file
       - name: Update related CI dependencies
@@ -90,9 +102,8 @@ jobs:
       - run: git push origin "${PR_BRANCH}" --force
         if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0)
       - name: Create PR
-        if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0)
+        if: (! inputs.dry-run) && (steps.count-commits.outputs.count > 0) && (steps.fetch-active-prs.outputs.count == 0)
         env:
           GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |
-          gh pr list --author "@me" --state open --head "${PR_BRANCH}" || \
-            gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'
+          gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'

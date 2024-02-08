@@ -94,5 +94,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |
-          gh pr list --author "@me" --state open --head "${PR_BRANCH}" ||
+          gh pr list --author "@me" --state open --head "${PR_BRANCH}" || \
             gh pr create --base '${{ inputs.default-branch }}' --title '${{ inputs.pr-title }}' --body '${{ inputs.pr-body }}'

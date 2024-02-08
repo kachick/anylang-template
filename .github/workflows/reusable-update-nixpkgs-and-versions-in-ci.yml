@@ -79,14 +79,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Reuse branch
-        if: steps.fetch-active-prs.outputs.count > 0
+      - name: Prepare Git branch
         run: |
           git switch "${PR_BRANCH}" || git switch -c "${PR_BRANCH}"
-      - name: Create new branch
-        if: steps.fetch-active-prs.outputs.count == 0
-        run: |
-          git switch -c "${PR_BRANCH}"
       - name: Update flake.lock and commit them
         run: nix flake update --commit-lock-file
       - name: Update related CI dependencies

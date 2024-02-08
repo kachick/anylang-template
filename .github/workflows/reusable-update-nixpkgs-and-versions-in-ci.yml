@@ -70,6 +70,8 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v3
       - name: Fetch active PRs by me
         id: fetch-active-prs
+        env:
+          GITHUB_TOKEN: ${{ steps.publish-token.outputs.token }}
         run: |
           count="$(gh pr list --author "@me" --state open --head bot-update-flake-lock --json number --jq 'length')"
           echo "count=${count}" | tee -a "$GITHUB_OUTPUT"

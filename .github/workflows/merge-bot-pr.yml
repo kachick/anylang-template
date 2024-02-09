@@ -52,7 +52,7 @@ jobs:
   selfup-runner:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'kachick-dependency-updater[bot]' }}
+    if: ${{ github.actor == 'selfup-runner[bot]' }}
     steps:
       - name: Wait other jobs
         uses: kachick/wait-other-jobs@v2.0.2

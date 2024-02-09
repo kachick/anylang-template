@@ -1,9 +1,8 @@
-name: Update flake.lock and CI dependencies
+name: Bump flake.lock and related dependencies
 on:
   pull_request:
     paths:
-      - '.github/workflows/update-nixpkgs-and-versions-in-ci.yml'
-      - '.github/workflows/reusable-update-nixpkgs-and-versions-in-ci.yml'
+      - '.github/workflows/bump-flake-lock-and-selfup.yml'
   schedule:
     # Every Monday 10:17 JST
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
@@ -11,9 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
-    # Why splitting to another file?: https://github.com/actions/runner/issues/2274
-    uses: ./.github/workflows/reusable-update-nixpkgs-and-versions-in-ci.yml
+  bump:
+    uses: kachick/selfup/.github/workflows/reusable-bump-flake-lock-and-selfup.yml@action-v1
     if: (github.event.sender.login == 'kachick') || (github.event_name != 'pull_request')
     with:
       dry-run: ${{ github.event_name == 'pull_request' }}

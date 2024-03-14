@@ -3,6 +3,10 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     ignore:
       - dependency-name: 'crate-ci/typos'
+    groups:
+      DeterminateSystems-actions:
+        patterns:
+          - 'DeterminateSystems*'

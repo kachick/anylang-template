@@ -1,4 +1,4 @@
-name: Bump flake.lock and related dependencies
+name: 🤖🆙❄️
 on:
   pull_request:
     paths:
@@ -15,6 +15,7 @@ jobs:
     uses: kachick/selfup/.github/workflows/reusable-bump-flake-lock-and-selfup.yml@action-v1
     with:
       dry-run: ${{ github.event_name == 'pull_request' }}
+      pr-title: 'Bump flake.lock and related dependencies'
       optional-run: |
         echo 'Add another changes and git commit here, especially for .node-version/.ruby-version'
     secrets:

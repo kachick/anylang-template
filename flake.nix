@@ -15,6 +15,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
+        formatter = pkgs.nixpkgs-fmt;
         devShells.default = with pkgs;
           mkShell {
             buildInputs = [

@@ -18,11 +18,12 @@ tasks:
   fmt:
     cmds:
       - dprint fmt
-      - nixpkgs-fmt ./*.nix
+      - nix fmt
   lint:
     cmds:
       - dprint check
       - typos . .github .vscode
+      # nix fmt doesn't have check: https://github.com/NixOS/nix/issues/6918
       - nixpkgs-fmt --check ./*.nix
   deps:
     cmds:

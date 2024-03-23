@@ -11,11 +11,14 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        formatter = pkgs.nixpkgs-fmt;
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        # Q. Why nixfmt? Not nixpkgs-fmt and alejandra?
+        # A. nixfmt will be official
+        # - https://github.com/NixOS/nixfmt/issues/153
+        # - https://github.com/NixOS/nixfmt/issues/129
+        # - https://github.com/NixOS/rfcs/pull/166
+        formatter = pkgs.nixfmt;
         devShells.default = with pkgs;
           mkShell {
             buildInputs = [
@@ -23,13 +26,12 @@
               # https://github.com/kachick/dotfiles/pull/228
               bashInteractive
 
+              nixfmt
               nil
-              nixpkgs-fmt
               dprint
               typos
               go-task
             ];
           };
-      }
-    );
+      });
 }

@@ -24,7 +24,7 @@ tasks:
       - dprint check
       - typos . .github .vscode
       # nix fmt doesn't have check: https://github.com/NixOS/nix/issues/6918
-      - nixpkgs-fmt --check ./*.nix
+      - nixfmt --check ./*.nix
   deps:
     cmds:
       - nix --version

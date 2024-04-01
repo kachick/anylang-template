@@ -7,6 +7,6 @@ updates:
     ignore:
       - dependency-name: 'crate-ci/typos'
     groups:
-      DeterminateSystems-actions:
+      determinatesystems-actions:
         patterns:
           - 'DeterminateSystems*'

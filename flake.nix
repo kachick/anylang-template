@@ -21,19 +21,19 @@
         # - https://github.com/NixOS/nixfmt/issues/153
         # - https://github.com/NixOS/nixfmt/issues/129
         # - https://github.com/NixOS/rfcs/pull/166
-        formatter = edge-pkgs.nixfmt;
+        formatter = edge-pkgs.nixfmt-rfc-style;
         devShells.default = with pkgs;
           mkShell {
             buildInputs = [
               # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
               # https://github.com/kachick/dotfiles/pull/228
               bashInteractive
-              edge-pkgs.nixfmt
-              edge-pkgs.nil
+              edge-pkgs.nixfmt-rfc-style
+              nil
+              go-task
 
               edge-pkgs.dprint
               edge-pkgs.typos
-              edge-pkgs.go-task
             ];
           };
       });

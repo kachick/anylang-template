@@ -10,31 +10,42 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, edge-nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      edge-nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         edge-pkgs = edge-nixpkgs.legacyPackages.${system};
-      in {
+      in
+      {
         # Q. Why nixfmt? Not nixpkgs-fmt and alejandra?
         # A. nixfmt will be official
         # - https://github.com/NixOS/nixfmt/issues/153
         # - https://github.com/NixOS/nixfmt/issues/129
         # - https://github.com/NixOS/rfcs/pull/166
-        formatter = edge-pkgs.nixfmt;
-        devShells.default = with pkgs;
+        formatter = edge-pkgs.nixfmt-rfc-style;
+        devShells.default =
+          with pkgs;
           mkShell {
             buildInputs = [
               # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
               # https://github.com/kachick/dotfiles/pull/228
               bashInteractive
-              edge-pkgs.nixfmt
-              edge-pkgs.nil
+              findutils # xargs
+              edge-pkgs.nixfmt-rfc-style
+              nil
+              go-task
 
               edge-pkgs.dprint
               edge-pkgs.typos
-              edge-pkgs.go-task
             ];
           };
-      });
+      }
+    );
 }

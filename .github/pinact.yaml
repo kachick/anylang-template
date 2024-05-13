@@ -8,4 +8,4 @@ ignore_actions:
   # That version and CLI is in same repository, and I bump it with selfup to sync with nixpkgs
   - name: crate-ci/typos
 
-  # Do not add DeterminateSystems actions here, they are using major versions but there are no releases for patch versions
+# Do not add DeterminateSystems actions here, they are using major versions but there are no releases for patch versions

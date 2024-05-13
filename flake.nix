@@ -43,6 +43,7 @@
               go-task
 
               edge-pkgs.dprint
+              edge-pkgs.yamlfmt
               edge-pkgs.typos
             ];
           };

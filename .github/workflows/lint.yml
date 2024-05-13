@@ -26,3 +26,17 @@ jobs:
             .
             .github
             .vscode
+
+  yamlfmt:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          # yamlfmt still uses this ver for the distribution
+          go-version: '1.18'
+      - name: Install yamlfmt
+        run: go install github.com/google/yamlfmt/cmd/yamlfmt@v0.12.1
+      - run: yamlfmt -lint .

@@ -53,6 +53,7 @@
 
                 edge-pkgs.dprint
                 edge-pkgs.typos
+                edge-pkgs.yamlfmt
               ];
             };
         }

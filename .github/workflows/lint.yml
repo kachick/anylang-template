@@ -32,8 +32,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Go
-        uses: actions/setup-go@v5
-      - name: Install yamlfmt
-        run: go install github.com/google/yamlfmt/cmd/yamlfmt@v0.12.1 # TODO: Apply selfup after https://github.com/google/yamlfmt/pull/180
+      - uses: jdx/mise-action@0c39a522dfbced3ed83924152c45804a71ce216f # v2.0.4
+        with:
+          mise_toml: |
+            [tools]
+            # TODO: Apply selfup after https://github.com/google/yamlfmt/pull/180
+            yamlfmt = "0.12.1"
       - run: yamlfmt -lint .

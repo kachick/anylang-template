@@ -5,7 +5,7 @@
     #   - https://discourse.nixos.org/t/differences-between-nix-channels/13998
     # How to update the revision
     #   - `nix flake update --commit-lock-file` # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake-update.html
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     edge-nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
@@ -31,7 +31,7 @@
       # - https://github.com/NixOS/nixfmt/issues/153
       # - https://github.com/NixOS/nixfmt/issues/129
       # - https://github.com/NixOS/rfcs/pull/166
-      formatter = forAllSystems (system: edge-nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
       devShells = forAllSystems (
         system:
         let
@@ -47,12 +47,12 @@
                 # https://github.com/kachick/dotfiles/pull/228
                 bashInteractive
                 findutils # xargs
-                edge-pkgs.nixfmt-rfc-style
+                nixfmt-rfc-style
                 nil
                 go-task
 
-                edge-pkgs.dprint
-                edge-pkgs.typos
+                dprint
+                typos
                 edge-pkgs.yamlfmt
               ];
             };

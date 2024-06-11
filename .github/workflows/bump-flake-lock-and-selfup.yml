@@ -19,5 +19,6 @@ jobs:
       optional-run: |
         echo 'Add another changes and git commit here, especially for .node-version/.ruby-version'
     secrets:
-      APP_ID: ${{ secrets.APP_ID }}
+      # TODO: Move vars to inputs
+      APP_ID: ${{ vars.APP_ID }}
       APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}

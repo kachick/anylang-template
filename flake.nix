@@ -6,15 +6,10 @@
     # How to update the revision
     #   - `nix flake update --commit-lock-file` # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake-update.html
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    edge-nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      edge-nixpkgs,
-    }:
+    { self, nixpkgs }:
     let
       # Candidates: https://github.com/NixOS/nixpkgs/blob/release-23.11/lib/systems/flake-systems.nix
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -36,7 +31,6 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          edge-pkgs = edge-nixpkgs.legacyPackages.${system};
         in
         {
           default =
@@ -53,7 +47,6 @@
 
                 dprint
                 typos
-                edge-pkgs.yamlfmt
               ];
             };
         }

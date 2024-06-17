@@ -33,8 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@7993355175c2765e5733dae74f3e0786fe0e5c4f # v12
-      - run: nix flake check
       - run: nix develop --command echo 'This step should be done before any other "nix develop" steps because of measuring Nix build time'
+      - run: nix flake check
+      - run: nix flake show
       - run: nix develop --command task deps
       - run: nix develop --command task check
     # - run: nix run . -- --version

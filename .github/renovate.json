@@ -8,5 +8,8 @@
   "labels": ["dependencies", "renovate"],
   "nix": {
     "enabled": false
-  }
+  },
+  "ignoreDeps": [
+    "crate-ci/typos"
+  ]
 }

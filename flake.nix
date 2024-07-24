@@ -21,11 +21,6 @@
       ];
     in
     {
-      # Q. Why nixfmt? Not nixpkgs-fmt and alejandra?
-      # A. nixfmt will be official
-      # - https://github.com/NixOS/nixfmt/issues/153
-      # - https://github.com/NixOS/nixfmt/issues/129
-      # - https://github.com/NixOS/rfcs/pull/166
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
       devShells = forAllSystems (
         system:

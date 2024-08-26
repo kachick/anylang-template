@@ -12,5 +12,6 @@
   },
   "ignoreDeps": [
     "crate-ci/typos"
-  ]
+  ],
+  "schedule": ["on Tuesday"]
 }

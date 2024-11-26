@@ -5,11 +5,19 @@
     #   - https://discourse.nixos.org/t/differences-between-nix-channels/13998
     # How to update the revision
     #   - `nix flake update --commit-lock-file` # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake-update.html
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    selfup = {
+      url = "github:kachick/selfup/v1.1.7";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      selfup,
+    }:
     let
       inherit (nixpkgs) lib;
       # List: https://github.com/NixOS/nixpkgs/blob/nixos-24.05/lib/systems/flake-systems.nix
@@ -26,10 +34,9 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in
         {
-          default =
-            with pkgs;
-            mkShellNoCC {
-              buildInputs = [
+          default = pkgs.mkShellNoCC {
+            buildInputs =
+              (with pkgs; [
                 # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
                 # https://github.com/kachick/dotfiles/pull/228
                 bashInteractive
@@ -40,8 +47,9 @@
 
                 dprint
                 typos
-              ];
-            };
+              ])
+              ++ [ selfup.packages.${system}.default ];
+          };
         }
       );
     };

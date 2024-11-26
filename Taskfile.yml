@@ -25,6 +25,10 @@ tasks:
       - typos . .github .vscode
       # nix fmt doesn't have check: https://github.com/NixOS/nix/issues/6918
       - git ls-files '*.nix' | xargs nixfmt --check
+      - git ls-files | xargs selfup list -check
+  selfup:
+    cmds:
+      - git ls-files | xargs selfup run
   deps:
     cmds:
       - nix --version
@@ -32,3 +36,4 @@ tasks:
       - task --version
       - dprint --version
       - typos --version
+      - selfup -version

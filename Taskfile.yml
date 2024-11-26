@@ -32,3 +32,4 @@ tasks:
       - task --version
       - dprint --version
       - typos --version
+      - selfup -version

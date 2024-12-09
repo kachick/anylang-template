@@ -29,16 +29,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1732585313,
-        "narHash": "sha256-V8XQ65K8zdIfwync6wrJ9h47YqdPi91jfH9tNgDQiWI=",
+        "lastModified": 1733754336,
+        "narHash": "sha256-Sy4LfPXqa2CKnySCFTLMwU5mSKxKOdeC52Yjoomcbvs=",
         "owner": "kachick",
         "repo": "selfup",
-        "rev": "6955f98516ff63b945b445ecaeb3b5a4849be4cc",
+        "rev": "ecb158813e7ade0a2e9b88b186460d052a906f20",
         "type": "github"
       },
       "original": {
         "owner": "kachick",
-        "ref": "v1.1.7",
+        "ref": "v1.1.8",
         "repo": "selfup",
         "type": "github"
       }

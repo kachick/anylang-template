@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs =
@@ -13,8 +13,7 @@
       forAllSystems = lib.genAttrs lib.systems.flakeExposed;
     in
     {
-      # Use nixfmt-tree since nixos-25.05. See https://github.com/NixOS/nixpkgs/pull/384857
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
       devShells = forAllSystems (
         system:
         let
@@ -22,6 +21,9 @@
         in
         {
           default = pkgs.mkShellNoCC {
+            # Correct nixd inlay hints
+            env.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
+
             buildInputs = (
               with pkgs;
               [
@@ -29,7 +31,7 @@
                 bashInteractive
                 findutils # xargs
                 nixfmt-rfc-style
-                nil
+                nixd
                 go-task
 
                 dprint

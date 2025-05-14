@@ -1,17 +1,12 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    selfup = {
-      url = "github:kachick/selfup/v1.1.9";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      selfup,
     }:
     let
       inherit (nixpkgs) lib;
@@ -27,8 +22,9 @@
         in
         {
           default = pkgs.mkShellNoCC {
-            buildInputs =
-              (with pkgs; [
+            buildInputs = (
+              with pkgs;
+              [
                 # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
                 bashInteractive
                 findutils # xargs
@@ -38,8 +34,8 @@
 
                 dprint
                 typos
-              ])
-              ++ [ selfup.packages.${system}.default ];
+              ]
+            );
           };
         }
       );

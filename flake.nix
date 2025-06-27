@@ -5,8 +5,8 @@
 
   outputs =
     {
-      self,
       nixpkgs,
+      ...
     }:
     let
       inherit (nixpkgs) lib;
@@ -36,6 +36,7 @@
 
                 dprint
                 typos
+                zizmor
               ]
             );
           };

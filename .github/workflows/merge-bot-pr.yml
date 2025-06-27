@@ -2,10 +2,10 @@ name: 🤖👌🤖
 on: pull_request
 
 permissions:
-  contents: write
-  pull-requests: write
-  # checks: read # For private repositories
-  # actions: read # For private repositories
+  contents: write # zizmor: ignore[excessive-permissions]
+  pull-requests: write # zizmor: ignore[excessive-permissions]
+# checks: read # For private repositories
+# actions: read # For private repositories
 
 jobs:
   judge-dependabot:

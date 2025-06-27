@@ -36,8 +36,6 @@ jobs:
 
   zizmor:
     runs-on: ubuntu-24.04
-    permissions:
-      security-events: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -47,3 +45,4 @@ jobs:
       - uses: zizmorcore/zizmor-action@f52a838cfabf134edcbaa7c8b3677dde20045018 # v0.1.1
         with:
           version: '1.9.0' # selfup {"extract":"\\d[^']+","replacer":["zizmor", "--version"], "nth": 2}
+          advanced-security: false

@@ -30,7 +30,7 @@
                 # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
                 bashInteractive
                 findutils # xargs
-                nixfmt-rfc-style
+                nixfmt # nixfmt-rfc-style is now nixfmt: https://github.com/NixOS/nixpkgs/pull/425068
                 nixd
                 go-task
 

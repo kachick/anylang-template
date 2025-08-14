@@ -19,3 +19,9 @@ extend-ignore-words-re = [
 extend-exclude = [
   "go.mod",
 ]
+
+# https://github.com/crate-ci/typos/issues/1304#issuecomment-3188457455
+[type.css.extend-words]
+wdth = "wdth"
+[type.html.extend-words]
+wdth = "wdth"

@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
       - uses: dprint/check@9cb3a2b17a8e606d37aae341e49df3654933fc23 # v2.3
         with:
-          dprint-version: '0.50.1' # selfup {"extract":"\\d[^']+","replacer":["dprint", "--version"], "nth": 2}
+          dprint-version: '0.50.2' # selfup {"extract":"\\d[^']+","replacer":["dprint", "--version"], "nth": 2}
 
   typos:
     timeout-minutes: 15
@@ -44,5 +44,5 @@ jobs:
 
       - uses: zizmorcore/zizmor-action@e673c3917a1aef3c65c972347ed84ccd013ecda4 # v0.2.0
         with:
-          version: '1.12.1' # selfup {"extract":"\\d[^']+","replacer":["zizmor", "--version"], "nth": 2}
+          version: '1.13.0' # selfup {"extract":"\\d[^']+","replacer":["zizmor", "--version"], "nth": 2}
           advanced-security: false

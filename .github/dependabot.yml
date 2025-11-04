@@ -6,3 +6,5 @@ updates:
       interval: 'weekly'
     ignore:
       - dependency-name: 'crate-ci/typos'
+    cooldown:
+      default-days: 14

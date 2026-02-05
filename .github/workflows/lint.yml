@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - uses: crate-ci/typos@v1.42.1 # selfup {"extract":"\\d\\.\\d+\\.\\d+","replacer":["typos", "--version"], "nth": 2}
+      - uses: crate-ci/typos@v1.42.3 # selfup {"extract":"\\d\\.\\d+\\.\\d+","replacer":["typos", "--version"], "nth": 2}
         with:
           files: |
             .
@@ -35,7 +35,7 @@ jobs:
             .vscode
 
   zizmor:
-    runs-on: ubuntu-24.04 # zizmorcore/zizmor-action depends on Docker
+    runs-on: ubuntu-24.04 # Don't use ubuntu-slim until resolving https://github.com/zizmorcore/zizmor-action/issues/74
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

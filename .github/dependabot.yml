@@ -7,4 +7,4 @@ updates:
     ignore:
       - dependency-name: 'crate-ci/typos'
     cooldown:
-      default-days: 7
+      default-days: 7 # 7 by zizmor's default

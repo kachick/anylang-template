@@ -20,5 +20,6 @@
   ],
   "schedule": [
     "on Tuesday"
-  ]
+  ],
+  "minimumReleaseAge": "7 days"
 }

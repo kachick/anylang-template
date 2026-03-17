@@ -38,6 +38,10 @@ jobs:
           curl -sfL https://direnv.net/install.sh | bash
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - uses: NixOS/nix-installer-action@main # There are no tagged releases
+        with:
+          extra-conf: |
+            sandbox = true
+            accept-flake-config = true
       - name: Load environment variables
         run: |
           direnv allow .

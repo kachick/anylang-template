@@ -25,25 +25,28 @@ permissions:
 
 jobs:
   tasks:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-24.04
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
+      - name: Install direnv
+        run: |
+          curl -sfL https://direnv.net/install.sh | bash
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
       # "DeterminateSystems/nix-installer-action" does not run on x86_64-darwin: https://github.com/DeterminateSystems/nix-src/issues/224
       - uses: NixOS/nix-installer-action@main # There are no tagged releases
         with:
           extra-conf: |
             sandbox = true
             accept-flake-config = true
-      - run: nix develop --command echo 'This step should be done before any other "nix develop" steps because of measuring Nix build time'
-      - run: nix flake check
-      - run: nix flake show
-      - run: nix develop --command task check
+      - name: Load environment variables
+        run: |
+          direnv allow .
+          direnv export gha > "$GITHUB_ENV"
+      # - run: nix flake check
+      # - run: nix flake show
+      - run: task check
     # - run: nix run . -- --version

@@ -30,7 +30,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     steps:
-      - name: Wait other jobs
+      - name: Wait for other jobs
         uses: kachick/wait-other-jobs@v4
         with:
           skip-same-workflow: 'true'
@@ -41,19 +41,20 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ github.token }}
 
-  # Avoid `automerge` renovate official feature.
-  #   It wait longtime to be merged.
-  # Avoid `platformAutomerge` renovate official feature.
-  #   It requires many changes in GitHub settings.
+  # Avoid the "automerge" Renovate official feature.
+  #   It takes a long time to be merged.
+  # Avoid the "platformAutomerge" Renovate official feature.
+  #   It requires many changes to GitHub settings.
   #    - `Allow auto-merge`
   #    - `Require status checks to pass before merging` and specify the status names
-  #   Changing in all personal repository is annoy task for me. Even if using terrafform, getting mandatory CI names in each repo is too annoy!
+  #   Changing settings in all personal repositories is an annoying task for me.
+  #   Even when using Terraform, retrieving mandatory CI names for each repository is too annoying!
   renovate:
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
     steps:
-      - name: Wait other jobs
+      - name: Wait for other jobs
         uses: kachick/wait-other-jobs@v4
         with:
           skip-same-workflow: 'true'
@@ -70,7 +71,7 @@ jobs:
     runs-on: ubuntu-24.04
     if: ${{ github.event.pull_request.user.login == 'selfup-runner[bot]' }}
     steps:
-      - name: Wait other jobs
+      - name: Wait for other jobs
         uses: kachick/wait-other-jobs@v4
         with:
           skip-same-workflow: 'true'

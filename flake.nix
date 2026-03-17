@@ -21,7 +21,7 @@
         in
         {
           default = pkgs.mkShellNoCC {
-            # Correct nixd inlay hints
+            # Set NIX_PATH for nixd inlay hints
             env.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
 
             buildInputs = (

@@ -12,10 +12,18 @@ jobs:
   dprint:
     timeout-minutes: 15
     runs-on: ubuntu-slim
+    env:
+      DPRINT_VERSION: '0.54.0' # selfup {"extract":"\\d[^']+","replacer":["dprint", "--version"], "nth": 2}
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
+
+      - uses: actions/cache@v5
+        with:
+          # To avoid rate limits on GitHub releases.
+          path: ~/.dprint
+          key: dprint-bin-${{ runner.os }}-${{ runner.arch }}-${{ env.DPRINT_VERSION }} # selfup {"extract":"\\d[^']+","replacer":["dprint", "--version"], "nth": 2}
 
       - uses: actions/cache@v5
         with:
@@ -26,7 +34,7 @@ jobs:
 
       - uses: dprint/check@9cb3a2b17a8e606d37aae341e49df3654933fc23 # v2.3
         with:
-          dprint-version: '0.54.0' # selfup {"extract":"\\d[^']+","replacer":["dprint", "--version"], "nth": 2}
+          dprint-version: ${{ env.DPRINT_VERSION }}
 
   typos:
     timeout-minutes: 15

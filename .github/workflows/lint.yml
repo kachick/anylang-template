@@ -25,7 +25,7 @@ jobs:
           # We cache them to avoid GitHub API rate limits.
           # Revisit this cache logic once upstream supports it: https://github.com/dprint/check/issues/12
           path: ~/.cache/dprint
-          key: dprint-${{ hashFiles('dprint.json') }}
+          key: dprint-${{ hashFiles('dprint.json', 'dprint.jsonc') }}
 
       - uses: dprint/check@9cb3a2b17a8e606d37aae341e49df3654933fc23 # v2.3
         with:

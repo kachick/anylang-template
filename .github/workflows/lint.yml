@@ -21,7 +21,8 @@ jobs:
       # exceeds the benefit, as the check action always runs anyway.
       - uses: actions/cache@v5
         with:
-          # WASM plugins only, so this cache works on any OS/arch
+          # WASM plugins only, so this cache works on any OS/arch.
+          # We cache them to avoid GitHub API rate limits.
           # Revisit this cache logic once upstream supports it: https://github.com/dprint/check/issues/12
           path: ~/.cache/dprint
           key: dprint-${{ hashFiles('dprint.json') }}

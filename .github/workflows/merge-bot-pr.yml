@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Wait for other jobs
-        uses: kachick/wait-other-jobs@v4
+        uses: kachick/wait-other-jobs@59f25684252050d78317758cbfea7a5f261960cd # v4
         with:
           skip-same-workflow: 'true'
         timeout-minutes: 10
@@ -55,29 +55,12 @@ jobs:
     if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
     steps:
       - name: Wait for other jobs
-        uses: kachick/wait-other-jobs@v4
+        uses: kachick/wait-other-jobs@59f25684252050d78317758cbfea7a5f261960cd # v4
         with:
           skip-same-workflow: 'true'
         timeout-minutes: 10
       - name: Approve and merge
         run: gh pr review --approve "$PR_URL" && gh pr merge --auto --squash --delete-branch "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ github.token }}
-
-  # https://github.com/kachick/anylang-template/issues/51
-  selfup-runner:
-    timeout-minutes: 30
-    runs-on: ubuntu-24.04
-    if: ${{ github.event.pull_request.user.login == 'selfup-runner[bot]' }}
-    steps:
-      - name: Wait for other jobs
-        uses: kachick/wait-other-jobs@v4
-        with:
-          skip-same-workflow: 'true'
-        timeout-minutes: 20
-      - name: Approve and merge
-        run: gh pr review --approve "$PR_URL" && gh pr merge --auto --delete-branch --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ github.token }}

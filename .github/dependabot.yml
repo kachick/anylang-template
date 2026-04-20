@@ -4,7 +4,10 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-    ignore:
-      - dependency-name: 'crate-ci/typos'
     cooldown:
       default-days: 7 # 7 by zizmor's default
+  - package-ecosystem: 'nix' # zizmor: ignore[dependabot-cooldown]
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    versioning-strategy: 'lockfile-only'

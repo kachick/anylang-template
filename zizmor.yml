@@ -2,7 +2,4 @@ rules:
   unpinned-uses:
     config:
       policies:
-        kachick/*: any
         actions/*: any
-        NixOS/*: any
-        crate-ci/*: any

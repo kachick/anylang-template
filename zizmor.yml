@@ -3,6 +3,3 @@ rules:
     config:
       policies:
         actions/*: any
-        NixOS/*: any
-  dependabot-cooldown:
-    disable: true # Revisit once zizmor supports ignoring specific ecosystem. I don't want to restrict Nix ecosystem yet.

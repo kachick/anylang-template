@@ -6,7 +6,7 @@ updates:
       interval: 'weekly'
     cooldown:
       default-days: 7 # 7 by zizmor's default
-  - package-ecosystem: 'nix'
+  - package-ecosystem: 'nix' # zizmor: ignore[dependabot-cooldown]
     directory: '/'
     schedule:
       interval: 'weekly'

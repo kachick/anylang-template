@@ -28,7 +28,7 @@ jobs:
     needs: [judge-dependabot]
     if: ${{ needs.judge-dependabot.outputs.merge == 'true' }}
     timeout-minutes: 30
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Wait for other jobs
         uses: kachick/wait-other-jobs@v4
@@ -51,7 +51,7 @@ jobs:
   #   Even when using Terraform, retrieving mandatory CI names for each repository is too annoying!
   renovate:
     timeout-minutes: 30
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
     steps:
       - name: Wait for other jobs
@@ -68,7 +68,7 @@ jobs:
   # https://github.com/kachick/anylang-template/issues/51
   selfup-runner:
     timeout-minutes: 30
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ github.event.pull_request.user.login == 'selfup-runner[bot]' }}
     steps:
       - name: Wait for other jobs

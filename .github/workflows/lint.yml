@@ -19,7 +19,7 @@ jobs:
 
       # We don't cache the dprint executable here because the overhead of caching it
       # exceeds the benefit, as the check action always runs anyway.
-      - uses: actions/cache@v5
+      - uses: actions/cache@v5.0.5
         with:
           # WASM plugins only, so this cache works on any OS/arch.
           # We cache them to avoid GitHub API rate limits.

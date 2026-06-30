@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@v6.0.3
+      - uses: actions/checkout@v7.0.0
         with:
           persist-credentials: false
 
@@ -35,7 +35,7 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@v6.0.3
+      - uses: actions/checkout@v7.0.0
         with:
           persist-credentials: false
       - uses: crate-ci/typos@v1.47.2 # selfup {"extract":"\\d\\.\\d+\\.\\d+","replacer":["typos", "--version"], "nth": 2}
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-26.04 # Don't use ubuntu-slim until resolving https://github.com/zizmorcore/zizmor-action/issues/74
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.0
         with:
           persist-credentials: false
 

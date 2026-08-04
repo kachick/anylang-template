@@ -55,5 +55,5 @@ jobs:
 
       - uses: zizmorcore/zizmor-action@6fc4b006235f201fdab3722e17240ab420d580e5 # v0.6.1
         with:
-          version: '1.26.1' # selfup {"extract":"\\d[^']+","replacer":["zizmor", "--version"], "nth": 2}
+          version: '1.28.0' # selfup {"extract":"\\d[^']+","replacer":["zizmor", "--version"], "nth": 2}
           advanced-security: false

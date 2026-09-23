@@ -18,7 +18,6 @@ tasks:
   fmt:
     cmds:
       - dprint fmt
-      - nix fmt
   lint:
     cmds:
       - dprint check

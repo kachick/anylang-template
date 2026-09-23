@@ -13,6 +13,7 @@
       forAllSystems = lib.genAttrs lib.systems.flakeExposed;
     in
     {
+      # TODO: Switch to dprint
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
       devShells = forAllSystems (
         system:
@@ -30,7 +31,6 @@
                 # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
                 bashInteractive
                 findutils # xargs
-                nixfmt # nixfmt-rfc-style is now nixfmt: https://github.com/NixOS/nixpkgs/pull/425068
                 nixfmt-tree
                 nixd
                 go-task

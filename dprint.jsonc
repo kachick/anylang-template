@@ -4,6 +4,9 @@
     "associations": ["**/*.{jsonc,json}"]
   },
   "markdown": {
+    "tags": {
+      "nix": "nix"
+    }
   },
   "yaml": {
     "quotes": "preferSingle",

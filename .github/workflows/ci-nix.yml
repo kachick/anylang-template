@@ -49,3 +49,6 @@ jobs:
       - run: nix flake check
       - run: nix flake show
       - run: task check
+        env:
+          # Prevent GitHub API rate limiting during `nix run github:`
+          GH_TOKEN: ${{ github.token }}

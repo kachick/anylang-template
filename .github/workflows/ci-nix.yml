@@ -41,9 +41,7 @@ jobs:
             extra-substituters = https://nix-community.cachix.org https://cache.numtide.com https://selfup.cachix.org
             extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g= selfup.cachix.org-1:eY2eEd955BmRI7SultbRIV81vApqpJixunkV3XlXuT8=
       - name: Install direnv
-        run: |
-          url="$(nix eval --raw --impure --expr '(builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked.url')"
-          nix profile add "${url}#direnv"
+        run: nix profile add --inputs-from . nixpkgs#direnv
       - name: Load environment variables
         run: |
           direnv allow .

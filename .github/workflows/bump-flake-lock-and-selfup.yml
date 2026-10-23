@@ -4,9 +4,6 @@ permissions:
   contents: read
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/bump-flake-lock-and-selfup.yml'
   schedule:
     # 1st of every month at 01:25 UTC (10:25 JST)
     # Minute and hour are distributed across repositories using CRC32

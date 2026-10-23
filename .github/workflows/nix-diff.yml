@@ -7,10 +7,13 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   diff:
+    name: Diff closures
+    permissions:
+      contents: read
+      pull-requests: write # Post closure differences to PR comments
     uses: kachick/workflows/.github/workflows/reusable-nix-diff-closures.yml@main
     with:
       runs-on: ubuntu-26.04

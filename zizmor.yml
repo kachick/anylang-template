@@ -1,6 +1,0 @@
-rules:
-  unpinned-uses:
-    config:
-      policies:
-        kachick/*: any
-        crate-ci/*: any

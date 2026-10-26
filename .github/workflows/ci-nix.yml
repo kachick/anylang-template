@@ -43,8 +43,8 @@ jobs:
           # access-tokens: Prevent GitHub API rate limiting during `nix run github:`
           extra-conf: |
             access-tokens = github.com=${{ github.token }}
-            extra-substituters = https://nix-community.cachix.org https://cache.numtide.com https://selfup.cachix.org
-            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g= selfup.cachix.org-1:eY2eEd955BmRI7SultbRIV81vApqpJixunkV3XlXuT8=
+            extra-substituters = https://kachick.cachix.org
+            extra-trusted-public-keys = kachick.cachix.org-1:7giZGKW03gPFkbde09JNpDKCbDGGwBuU/Z11W/jUtEQ=
       - name: Install direnv
         run: nix profile add --inputs-from . nixpkgs#direnv
       - name: Load environment variables

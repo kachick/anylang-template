@@ -24,3 +24,4 @@ tasks:
       - dprint check
       - typos . .github
       - zizmor --pedantic .
+      - renovate-config-validator --strict .github/renovate.jsonc

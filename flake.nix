@@ -41,6 +41,7 @@
                 findutils # xargs
                 nixd
                 go-task
+                renovate # renovate-config-validator
 
                 dprint
                 typos

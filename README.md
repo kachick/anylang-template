@@ -15,4 +15,4 @@ When using this template for a project, review and update the following files:
 - [ ] `.gitignore` - Add build outputs and dependency directories
 - [ ] `typos.toml` - Clean up unused file exclusions and words
 - [ ] `.editorconfig` - Keep only needed language sections or adjust indentation
-- [ ] `.github/renovate.jsonc` - Enable package managers if needed
+- [ ] `.github/renovate.jsonc` - Enable package managers if needed (or remove `renovate` from `flake.nix` and `Taskfile.yml` for a lighter dev shell)

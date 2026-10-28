@@ -12,7 +12,8 @@ When using this template for a project, review and update the following files:
 - [ ] `README.md` - Update project name, description, and CI badges
 - [ ] `Taskfile.yml` - Replace `test` command and add language-specific linters/formatters
 - [ ] `flake.nix` - Add required compilers, runtimes, or tools to `devShells`
+- [ ] Remove `renovate` from `flake.nix` and `Taskfile.yml` to keep the dev shell lightweight
 - [ ] `.gitignore` - Add build outputs and dependency directories
 - [ ] `typos.toml` - Clean up unused file exclusions and words
 - [ ] `.editorconfig` - Keep only needed language sections or adjust indentation
-- [ ] `.github/renovate.jsonc` - Enable package managers if needed (or remove `renovate` from `flake.nix` and `Taskfile.yml` for a lighter dev shell)
+- [ ] `.github/renovate.jsonc` - Enable package managers if needed

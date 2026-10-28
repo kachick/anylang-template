@@ -21,10 +21,16 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: dprint/check@7dc032d8874778fc024f6f9b4a7e6d896782c330 # v2.5
+      - uses: NixOS/nix-installer-action@62c1943b776c509394b550f3f983adc14e9212d6 # v1.0.0
         with:
-          dprint-version: '0.64.1' # selfup {"extract":"\\d[^']+","replacer":["dprint", "--version"], "nth": 2}
-          cache: true
+          # access-tokens: Prevent GitHub API rate limiting during `nix run github:`
+          extra-conf: |
+            access-tokens = github.com=${{ github.token }}
+            extra-substituters = https://kachick.cachix.org
+            extra-trusted-public-keys = kachick.cachix.org-1:7giZGKW03gPFkbde09JNpDKCbDGGwBuU/Z11W/jUtEQ=
+      - name: Install dprint
+        run: nix profile add --inputs-from . nixpkgs#dprint
+      - run: dprint check
 
   typos:
     name: typos
@@ -34,9 +40,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: crate-ci/typos@v1.51.1 # zizmor: ignore[unpinned-uses] # selfup {"extract":"\\d\\.\\d+\\.\\d+","replacer":["typos", "--version"], "nth": 2}
+      - uses: NixOS/nix-installer-action@62c1943b776c509394b550f3f983adc14e9212d6 # v1.0.0
         with:
-          files: |
-            .
-            .github
-            .vscode
+          # access-tokens: Prevent GitHub API rate limiting during `nix run github:`
+          extra-conf: |
+            access-tokens = github.com=${{ github.token }}
+            extra-substituters = https://kachick.cachix.org
+            extra-trusted-public-keys = kachick.cachix.org-1:7giZGKW03gPFkbde09JNpDKCbDGGwBuU/Z11W/jUtEQ=
+      - name: Install typos
+        run: nix profile add --inputs-from . nixpkgs#typos
+      - run: typos . .github .vscode

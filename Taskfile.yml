@@ -1,5 +1,5 @@
 # https://taskfile.dev/styleguide/
-# Keep tasks short (1-2 lines). Do not write long scripts here; put them into files under scripts/ instead.
+# Keep each task to a single command. Do not chain commands (such as with ; or &&); put scripts into files under scripts/ instead.
 
 version: '3'
 

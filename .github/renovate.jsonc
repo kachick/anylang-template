@@ -1,25 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "dependencyDashboard": true,
-  "enabledManagers": [
-    "custom.regex"
-  ],
   "extends": [
-    ":semanticCommitsDisabled",
-    "github>kachick/renovate-config-dprint#1.4.0"
-  ],
-  "labels": [
-    "dependencies",
-    "renovate"
-  ],
-  "nix": {
-    "enabled": false
-  },
-  "ignoreDeps": [
-    "crate-ci/typos"
-  ],
-  "schedule": [
-    "on Tuesday"
-  ],
-  "minimumReleaseAge": "7 days"
+    "github>kachick"
+  ]
 }

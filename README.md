@@ -15,5 +15,4 @@ When using this template for a project, review and update the following files:
 - [ ] `.gitignore` - Add build outputs and dependency directories
 - [ ] `typos.toml` - Clean up unused file exclusions and words
 - [ ] `.editorconfig` - Keep only needed language sections or adjust indentation
-- [ ] `.vscode/` - Update recommended extensions and settings for your language
 - [ ] `.github/renovate.jsonc` - Enable package managers if needed

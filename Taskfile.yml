@@ -1,5 +1,5 @@
 # https://taskfile.dev/styleguide/
-# Keep each task to a single command. Do not chain commands (such as with ; or &&); put scripts into files under scripts/ instead.
+# Avoid chaining commands with ; or && in a single line. Use multiple cmd items for independent steps, or write a script under scripts/ instead.
 
 version: '3'
 

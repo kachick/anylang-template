@@ -38,7 +38,6 @@
               [
                 # https://github.com/NixOS/nix/issues/730#issuecomment-162323824
                 bashInteractive
-                findutils # xargs
                 nixd
                 go-task
                 renovate # renovate-config-validator
